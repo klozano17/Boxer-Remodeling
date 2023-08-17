@@ -37,3 +37,30 @@ footer {
   background-color: #2f3940;
   color: white;
 }
+/* Existing styles */
+
+/* For screens 600px and below */
+@media (max-width: 600px) {
+  header {
+    padding: 20px 0;
+  }
+  
+  nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  nav a {
+    margin: 5px 0;
+  }
+}
+
+/* For screens 800px and below */
+@media (max-width: 800px) {
+  section {
+    padding: 15px;
+  }
+}
+
+/* ... (rest of the styles) */
