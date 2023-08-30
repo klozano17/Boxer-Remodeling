@@ -1,28 +1,27 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-
+const exphbs = require('express-handlebars');
 const app = express();
-const port = 3000;
-
-// Middleware to parse request bodies
-app.use(bodyParser.urlencoded({ extended: false }));
+const port = process.env.PORT || 3000;
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
-// Handle POST request from form submission
-app.post('/submit_contact_form', (req, res) => {
-    const email = req.body.email;
-    const phone = req.body.phone;
-    const message = req.body.message;
+// Set up Handlebars as the view engine
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
-    // Process the data, send emails, etc. (you can use Nodemailer for sending emails)
+// Set up routes
+const homeRoute = require('./routes/home');
+const aboutRoute = require('./routes/about');
+const servicesRoute = require('./routes/services');
+const contactRoute = require('./routes/contact');
 
-    res.send('Form submitted successfully!');
-});
+app.use('/', homeRoute);
+app.use('/about', aboutRoute);
+app.use('/services', servicesRoute);
+app.use('/contact', contactRoute);
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
